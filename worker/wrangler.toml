@@ -1,0 +1,56 @@
+name = "cognitive-mind-orchestrator"
+main = "cognitive-mind-orchestrator-worker-COMPLETE.js"
+compatibility_date = "2024-03-01"
+
+# Account details
+account_id = "9a877cdba770217082a2f914427df505"
+
+# Workers settings
+workers_dev = true
+
+# Routes
+routes = [
+  { pattern = "cognitive-mind.ofshore.dev/*", zone_name = "ofshore.dev" }
+]
+
+# Public environment variables
+[vars]
+SUPABASE_URL = "https://blgdhfcosqjzrutncbbr.supabase.co"
+
+# Secrets (set via: wrangler secret put <SECRET_NAME>)
+# These must be set before deployment:
+# 
+# 1. Supabase credentials:
+#    wrangler secret put SUPABASE_ANON_KEY
+#    wrangler secret put SUPABASE_SERVICE_KEY
+#
+# 2. Groq API (for LLM analysis):
+#    wrangler secret put GROQ_API_KEY
+#
+# 3. Upstash Redis (for caching):
+#    wrangler secret put UPSTASH_REDIS_URL
+#    wrangler secret put UPSTASH_REDIS_TOKEN
+#
+# 4. Master encryption key (for API key encryption):
+#    wrangler secret put MASTER_ENCRYPTION_KEY
+#
+# Get credentials from Supabase Vault:
+# SELECT name, vault.decrypted_secret 
+# FROM vault.decrypted_secrets 
+# WHERE name IN (
+#   'supabase_anon_key',
+#   'supabase_service_key', 
+#   'groq_api_key',
+#   'upstash_redis_url',
+#   'upstash_redis_token',
+#   'master_encryption_key'
+# );
+
+# Node.js compatibility for crypto module
+compatibility_flags = [ "nodejs_compat" ]
+
+# Module type (ES modules)
+[build]
+command = ""
+
+# No cron triggers (handled by Supabase pg_cron)
